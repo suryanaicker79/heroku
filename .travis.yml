@@ -11,8 +11,8 @@ script:
  - go test -v ./...
  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin  
  - docker images
- - docker build -t travis .
- - docker run travis
- - docker tag travis:latest suryanaicker/travis:doc
- - docker push suryanaicker/travis:doc
+ - docker build -t travisheroku .
+ - docker run travisheroku
+ - docker tag travisheroku:latest suryanaicker/travisheroku:doc
+ - docker push suryanaicker/travisheroku:doc
   
