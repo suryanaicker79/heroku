@@ -15,6 +15,15 @@ script:
  - docker images
  - docker build -t travisheroku .
  - docker run travisheroku
- - docker tag travisheroku:latest suryanaicker/travisheroku:doc
- - docker push suryanaicker/travisheroku:doc
+ - docker tag travisheroku:latest suryanaicker/travisheroku:doc 
+ - docker tag suryanaicker/travisheroku:doc registry.heroku.com/$HEROKU_APP_NAME/web
+ 
+ deploy: 
+  provider: script 
+  script: 
+    # push to dockerhub & heroku 
+    docker push suryanaicker/travisheroku:doc
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web; 
+  on: 
+    branch: master
   
