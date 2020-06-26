@@ -1,0 +1,18 @@
+language: go
+
+service:
+  - docker
+
+go:
+  - 1.x
+  
+ 
+script:
+ - go test -v ./...
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin  
+ - docker images
+ - docker build -t travis .
+ - docker run travis
+ - docker tag travis:latest suryanaicker/travis:doc
+ - docker push suryanaicker/travis:doc
+  
